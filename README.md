@@ -2,40 +2,65 @@
 A test website that uses the Gulp build tool
 
 # Introduction
-This is an exercise in the 
+This is an exercise in using Gulp to build a website. Besides Gulp for testing this will use Sass for CSS precompiling and Panini for page templating.
 
 # Directory Structure
 |- *dist/*
+
     This is where the built files will be outputted to.
+
 |- *node_modules/*
+
     The plugins needed to run the project are kept here.
+
 |- *src/*
+
     |- *css/*
+
         The built CSS files are here.
+
     |- *data/*
+
         Data for use in pages is here.
+
     |- *fonts/*
+
         Customized fonts are here.
+
     |- *images/*
+
         Images used for the site are here.
+
     |- *js/*
+
         JavaScript and jQuery scripts are here.
+
     |- *layouts/*
+
         Layouts/templates are here.
+
     |- *pages/*
+
         Contains the actual page bodies here.
+
     |- *partials/*
+
         The page partials to put into the templates are here.
+
     |- *scss/*
         SCSS partials are kept here.
+
 |- *gulpfile.js*
+
     Gulp tasks are kept here.
+
 |- *LICENSE*
-    License is here.
+
 |- *package.json*
     Information about the project and list of dependencies is here.
+
 |- *README.md*
-    You are here.
+    Information about the project is here.
 
 # Dependencies
 *gulp-sass* - Compiles Sass into CSS.
@@ -65,6 +90,6 @@ This is an exercise in the
 
 *gulp build* - Cleans up any files that were generated before, compiles Sass, concatenates and minifies JavaScript and CSS, optimizes images, copies fonts, and flattens partials and layouts into pages.
 
-*gulp watch* Watches for any changes in Sass, HTML, and/or JavaScript and reloads the browser at any changes.
+*gulp watch* - Watches for any changes in Sass, HTML, and/or JavaScript and reloads the browser at any changes.
 
 

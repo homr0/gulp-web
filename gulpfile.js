@@ -1,3 +1,4 @@
+'use strict';
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
@@ -11,11 +12,13 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var panini = require('panini');
 
+const reload = browserSync.reload;
+
 // Gulp spins up a server using Browser Sync.
 gulp.task('browserSync', function() {
     browserSync.init({
         server: {
-            baseDir: 'src'
+            baseDir: 'dist'
         },
     })
 })
@@ -24,15 +27,15 @@ gulp.task('browserSync', function() {
 gulp.task('sass', function() {
     return gulp.src('src/scss/**/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('src/css'))
-    .pipe(browserSync.reload({
+    .pipe(gulp.dest('dist/css'))
+    .pipe(reload({
         stream: true
     }))
 });
 
 // Concatenates and minifies CSS and JavaScript files.
 gulp.task('useref', function() {
-    return gulp.src('src/partials/*.html')
+    return gulp.src('src/**/*.html')
     .pipe(useref())
     // Minifies only if it's a JavaScript file.
     .pipe(gulpIf('*.js', uglify()))
@@ -44,10 +47,7 @@ gulp.task('useref', function() {
 // Minifies and optimizes images.
 gulp.task('images', function() {
     return gulp.src('src/images/**/*.+(png|jpg|jpeg|gif|svg)')
-    .pipe(cache(imagemin({
-        // Setting interlaced to true.
-        interlaced: true
-    })))
+    .pipe(cache(imagemin()))
     .pipe(gulp.dest('dist/images'))
 });
 
@@ -55,18 +55,22 @@ gulp.task('images', function() {
 gulp.task('fonts', function() {
     return gulp.src('src/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))
-}
+});
 
 // Feeds Panini a stream of HTML files to get flattened site.
-gulp.task('panini', function() {
-    gulp.src('pages/**/*.html')
+gulp.task('pages', function() {
+    gulp.src('src/pages/**/*.html')
     .pipe(panini({
         root: 'src/',
-        layouts: 'layouts/',
-        partials: 'partials/',
-        data: 'data/'
+        layouts: 'src/layouts/',
+        partials: 'src/partials/',
+        helpers: 'src/helpers/',
+        data: 'src/data/'
     }))
     .pipe(gulp.dest('dist'))
+    .pipe(reload({
+        stream: true
+    }));
 });
 
 // Cleans up all automatically generated files.
@@ -79,25 +83,32 @@ gulp.task('cache:clear', function() {
     return cache.clearAll(callback)
 })
 
+// Gulp resets pages when html is changed.
+gulp.task('pages:reset', function(done) {
+    panini.refresh();
+    gulp.watch('pages');
+    done();
+});
+
 // Gulp watches for changes and then reloads browser.
 gulp.task('watch', ['browserSync', 'sass'], function() {
     gulp.watch('src/scss/**/*.scss', ['sass']);
-    gulp.watch('src/**/*.html', browserSync.reload);
-    gulp.watch(['src/{layouts,partials,data}/**/*'], [panini.refresh]);
-    gulp.watch('src/js/**/*.js', browserSync.reload);
+    gulp.watch('src/pages/**/*.html', ['pages']);
+    gulp.watch(['src/{layouts,partials,helpers,data}/**/*'], ['pages:reset']);
+    gulp.watch('src/js/**/*.js', reload);
 });
 
 // Gulp builds everything with a sequence of events.
 gulp.task('build', function(callback) {
-    runSequence('clean:dist', 
-        ['sass', 'useref', 'images', 'fonts', 'panini'], 
+    runSequence(//'clean:dist', 
+        ['sass', 'useref', 'images', 'fonts', 'pages'], 
         callback
     )
 })
 
 // Default Gulp task
 gulp.task('default', function(callback) {
-    runSequence(['sass', 'browserSync', 'watch'],
+    runSequence(['pages', 'sass', 'browserSync', 'watch'],
         callback
     )
 })
