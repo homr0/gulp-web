@@ -33,9 +33,15 @@ gulp.task('sass', function() {
     }))
 });
 
+// Gulp moves JavaScript over.
+gulp.task('javascript', function() {
+    return gulp.src('src/js/**/*.js')
+    .pipe(gulp.dest('dist/js'))
+});
+
 // Concatenates and minifies CSS and JavaScript files.
 gulp.task('useref', function() {
-    return gulp.src('src/layout/**/*.html')
+    return gulp.src('src/**/*.(html|hbs)')
     .pipe(useref())
     // Minifies only if it's a JavaScript file.
     .pipe(gulpIf('*.js', uglify()))
@@ -95,20 +101,20 @@ gulp.task('watch', ['browserSync', 'sass'], function() {
     gulp.watch('src/scss/**/*.scss', ['sass']);
     gulp.watch('src/pages/**/*.html', ['pages']);
     gulp.watch(['src/{layouts,partials,helpers,data}/**/*'], ['pages:reset']);
-    gulp.watch('src/js/**/*.js', reload);
+    gulp.watch('src/js/**/*.js', ['javascript, reload']);
 });
 
 // Gulp builds everything with a sequence of events.
 gulp.task('build', function(callback) {
-    runSequence(//'clean:dist',
-        ['sass', 'useref', 'images', 'fonts', 'pages'],
+    runSequence('clean:dist',
+        ['sass', 'javascript', 'useref', 'images', 'fonts', 'pages'],
         callback
     )
 })
 
 // Default Gulp task
 gulp.task('default', function(callback) {
-    runSequence(['pages', 'sass', 'browserSync', 'watch'],
+    runSequence(['pages', 'sass', 'javascript', 'browserSync', 'watch'],
         callback
     )
 })

@@ -1,0 +1,56 @@
+/* Styles for the rows and columns of a grid. */
+/* Rows */
+.row {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+/* Columns */
+.col {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Breakpoints */
+$size-phone: 320px;
+$size-tablet: 640px;
+$size-desktop: 768px;
+
+/* Mobile (Phone) Screen Size. */
+@media screen and (min-width: $size-phone) {
+    @for $i from 1 through 12 {
+        .sm-#{$i} {
+            flex: 0 0 ($i / 12 * 100%);
+        }
+    }
+    [class*="md-"] {
+    flex: 0 0 100%;
+    }
+    [class*="lg-"] {
+        flex: 0 0 100%;
+    }
+}
+
+/* Tablet Screen Size */
+@media screen and (min-width: $size-tablet) {
+    @for $i from 1 through 12 {
+        .md-#{$i} {
+            flex: 0 0 ($i / 12 * 100%);
+        }
+    }
+}
+
+/* Desktop Screen Size */
+@media screen and (min-width: $size-desktop) {
+    @for $i from 1 through 12 {
+        .lg-#{$i} {
+            flex: 0 0 ($i / 12 * 100%);
+        }
+    }
+}
