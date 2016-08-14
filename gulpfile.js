@@ -35,7 +35,7 @@ gulp.task('sass', function() {
 
 // Concatenates and minifies CSS and JavaScript files.
 gulp.task('useref', function() {
-    return gulp.src('src/**/*.html')
+    return gulp.src('src/layout/**/*.html')
     .pipe(useref())
     // Minifies only if it's a JavaScript file.
     .pipe(gulpIf('*.js', uglify()))
@@ -59,7 +59,7 @@ gulp.task('fonts', function() {
 
 // Feeds Panini a stream of HTML files to get flattened site.
 gulp.task('pages', function() {
-    gulp.src('src/pages/**/*.html')
+    gulp.src('src/pages/**/*.+(html|hbs)')
     .pipe(panini({
         root: 'src/',
         layouts: 'src/layouts/',
@@ -100,8 +100,8 @@ gulp.task('watch', ['browserSync', 'sass'], function() {
 
 // Gulp builds everything with a sequence of events.
 gulp.task('build', function(callback) {
-    runSequence(//'clean:dist', 
-        ['sass', 'useref', 'images', 'fonts', 'pages'], 
+    runSequence(//'clean:dist',
+        ['sass', 'useref', 'images', 'fonts', 'pages'],
         callback
     )
 })
