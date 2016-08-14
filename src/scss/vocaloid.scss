@@ -1,0 +1,70 @@
+/* Maps for Vocaloid color palettes. */
+$vocaloids: (
+    crypton: (
+        meiko: #ff0000,
+        kaito: #0000ff,
+        miku: #00ffff,
+        rin: #ff9900,
+        len: #ffcc00,
+        luka: #ff00ff
+    ),
+    internet: (
+        gackpo: #990099,
+        gumi: #00ff00,
+        lily: #cccc00
+    ),
+    bplats: (
+        vy1: #ff9999
+    ),
+    ah: (
+        miki: #ff0066,
+        yuki: #ff3333,
+        kiyoteru: #663300,
+        iroha: #990033
+    ),
+    exit: (
+        mayu: #666666
+    )
+);
+
+/* Searches through the map for the correct Vocaloid color. */
+@function vocaloid-color($vocalKey) {
+    $crypton-colors: map-get($vocaloids, crypton);
+    $internet-colors: map-get($vocaloids, internet);
+    $bplats-colors: map-get($vocaloids, bplats);
+    $ah-colors: map-get($vocaloids, ah);
+
+    @if map-has-key($crypton-colors, $vocalKey) {
+        @return map-get($crypton-colors, $vocalKey);
+    } @else if map-has-key($internet-colors, $vocalKey) {
+        @return map-get($internet-colors, $vocalKey);
+    } @else if map-has-key($bplats-colors, $vocalKey) {
+        @return map-get($bplats-colors, $vocalKey);
+    } @else if map-has-key($ah-colors, $vocalKey) {
+        @return map-get($ah-colors, $vocalKey);
+    } @else {
+        @return #000000;
+    };
+}
+
+/* Generates the Vocaloid color classes. */
+@each $name, $value in $vocaloids {
+    @each $item, $color in map-get($vocaloids, $name) {
+        .#{$item} {
+            color: $color;
+        }
+    }
+}
+
+.vocaloid {
+    display: inline;
+    font-size: 16px;
+
+    @each $name, $value in $vocaloids {
+        @each $item, $color in map-get($vocaloids, $name) {
+            & .#{$item} {
+                color: $color;
+            }
+        }
+    }
+}
