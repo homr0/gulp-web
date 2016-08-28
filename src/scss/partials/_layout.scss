@@ -1,6 +1,52 @@
 /* Styles for the various layout parts. */
-html, body {
-    width: 100%;
+html, body, header, footer {
+    width: 90%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
+}
+
+body {
+    margin: 0 10%;
+
+    .row {
+        width: 98%;
+        padding: 0;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+    .header {
+        width: 100%;
+
+        .row {
+            padding: 0 5%;
+            width: 90%;
+        }
+    }
+
+    .menu {
+        width: 90%;
+        padding: 10px;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                display: inline;
+                padding: 10px;
+            }
+        }
+    }
+
+    .footer {
+        width: 100%;
+
+        .row {
+            padding: 0 5%;
+            width: 90%;
+        }
+    }
 }

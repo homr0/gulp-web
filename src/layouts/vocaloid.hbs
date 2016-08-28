@@ -4,23 +4,17 @@
     <meta charset="UTF-8">
     <title>{{ title }} | Gulp Web</title>
     <!--build:css css/styles.min.css-->
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ root }}css/main.css">
     <!--endbuild-->
-    <link rel="stylesheet" href="/css/vocaloid.css">
+    <link rel="stylesheet" href="{{ root }}/css/vocaloid.css">
     <!--build:js js/main.min.js-->
-
+    <script src="{{ root }}js/layout.js"></script>
     <!--endbuild-->
 </head>
 
 <body>
-    <header class="header">
-
-    </header>
-
-    {{>body}}
-
-    <footer class="footer">
-
-    </footer>
+    {{> header }}
+    {{> body }}
+    {{> footer }}
 </body>
 </html>
