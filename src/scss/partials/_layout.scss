@@ -1,13 +1,13 @@
 /* Styles for the various layout parts. */
 html, body, header, footer {
-    width: 90%;
+    width: 96%;
     max-width: 100%;
     margin: 0;
     padding: 0;
 }
 
 body {
-    margin: 0 10%;
+    margin: 0 4%;
 
     .row {
         width: 98%;
@@ -37,6 +37,16 @@ body {
             li {
                 display: inline;
                 padding: 10px;
+                position: relative;
+            }
+
+            ul {
+                display: none;
+                position: absolute;
+            }
+
+            li:hover + ul {
+                display: block;
             }
         }
     }
