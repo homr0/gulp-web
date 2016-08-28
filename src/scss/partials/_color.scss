@@ -1,8 +1,88 @@
 /* Fragment for dealing with site colors. */
-$scotch-colors: (
-  'primary': #8e3329,
-  'accent': #d98328,
-  'secondary': #5a1321,
-  'foreground': #191919,
-  'background': #e9e9e9
+$theme-default: (
+  primary: #ffffff,
+  accent: #000000,
+  secondary: #00ffcc,
+  foreground: #3300ff,
+  background: #0000ff
 );
+
+/* Gets the theme color. */
+@function theme-color($theme: $theme-default, $key: primary) {
+    @return map-get($theme, $key);
+}
+
+$color-primary: theme-color();
+$color-primary-tinted: mix(white, $color-primary, 10%);
+$color-primary-shaded: mix(black, $color-primary, 10%);
+
+/* Adjusts the brightness of the theme color. */
+$color-interval: 10% !global;
+@function theme-color-level($theme-name: $theme-default, $color-name: 'primary', $level: 0) {
+    $color: theme-color($theme-name, $color-name);
+    $color-base: white;
+    @if($level < 0) {
+        $color-base: black;
+    }
+
+    @return mix($color-base, $color, $level);
+}
+
+/* Adjusts the opacity of the theme color. */
+@function theme-color-alpha($theme: $theme-default, $name: primary, $opacity: 0) {
+    $color: theme-color($theme, $name);
+
+    $alpha: $opacity;
+    // Use rgba() to manipulate the color's alpha level.
+    @return rgba($color, $alpha);
+}
+
+/* Checks the accessibility of two colors. */
+// Returns either a dark or light foreground, given the background color.
+@function theme-color-foreground($theme-coloring, $bgcolor, $threshold: .65) {
+    $theme-bg: theme-color($theme-coloring, $bgcolor);
+    $color-foreground: theme-color-level($theme-coloring, $bgcolor, $threshold);
+    @if(lightness($theme-bg) >= $threshold) {
+        $color-foreground: theme-color-level($theme-default, $bgcolor, $threshold)
+    }
+    @return $color-foreground;
+}
+body {
+    background-color: theme-color-alpha($theme-default, primary, 0.65);
+    color: theme-color-level($theme-default, primary, 10%);
+    border: 1px theme-color-alpha($theme-default, secondary, 0.5) solid;
+
+    a {
+        text-decoration: none;
+
+        &:link, &:visited {
+            color: theme-color($theme-default, primary);
+        }
+
+        &:hover, &:active, &:focus {
+            color: theme-color($theme-default, secondary);
+            border-bottom: 1px theme-color-level($theme-default, secondary, 0.9) dotted;
+            background-color: theme-color($theme-default, background);
+        }
+    }
+
+    .row {
+        background-color: theme-color-alpha($theme-default, foreground, 0.8);
+    }
+
+    .header {
+        .row {
+            background-color: theme-color-alpha($theme-default, accent, 0.8);
+        }
+    }
+
+    .menu {
+        background-color: theme-color($theme-default, background);
+    }
+
+    .footer {
+        .row {
+            background-color: theme-color-alpha($theme-default, accent, 0.8);
+        }
+    }
+}

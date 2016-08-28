@@ -4,9 +4,15 @@
             <h1>{{ title }}</h1>
         </div>
         <div class="col sm-10">
-            <nav class="menu">
+            <nav id="menuMain" class="menu">
                 <ul>
                     <li><a href="{{ root }}">Home</a></li>
+
+                    <li><a href="{{ root }}/ec_web">EC Web</a></li>
+                    <ul>
+                        <li><a href="{{ root }}/ec_web/vocaloid.html">Vocaloids</a></li>
+
+                        <li><a href="{{ root }}/ec_web/songs">Songs</a></li>
                 </ul>
             </nav>
         </div>
