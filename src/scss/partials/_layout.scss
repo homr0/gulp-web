@@ -8,26 +8,32 @@ html, body, header, footer {
 
 body {
     margin: 0 4%;
+    background-color: theme-color-alpha($theme-default, primary, 0.65);
+    color: theme-color-level($theme-default, primary, 10%);
+    border: 1px theme-color-alpha($theme-default, secondary, 0.5) solid;
 
     .row {
         width: 98%;
         padding: 0;
         padding-left: 1%;
         padding-right: 1%;
+        background-color: theme-color-alpha($theme-default, foreground, 0.8);
     }
 
-    .header {
+    .header, .footer {
         width: 100%;
 
         .row {
             padding: 0 5%;
             width: 90%;
+            background-color: theme-color-alpha($theme-default, accent, 0.8);
         }
     }
 
     .menu {
         width: 90%;
         padding: 10px;
+        background-color: theme-color($theme-default, background);
 
         ul {
             list-style: none;
@@ -51,12 +57,17 @@ body {
         }
     }
 
-    .footer {
-        width: 100%;
+    a {
+        text-decoration: none;
 
-        .row {
-            padding: 0 5%;
-            width: 90%;
+        &:link, &:visited {
+            color: theme-color($theme-default, primary);
+        }
+
+        &:hover, &:active, &:focus {
+            color: theme-color($theme-default, secondary);
+            border-bottom: 1px theme-color-level($theme-default, secondary, 0.9) dotted;
+            background-color: theme-color($theme-default, background);
         }
     }
 }

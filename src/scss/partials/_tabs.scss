@@ -1,0 +1,35 @@
+.tabs {
+    padding: 0;
+
+    li {
+        display: inline;
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+        border: 1px theme-color($theme-default, accent) solid;
+
+        &.is-active {
+            background-color: theme-color($theme-default, foreground);
+        }
+    }
+
+    li:hover, a:hover {
+        background-color: theme-color($theme-default, secondary);
+        color: theme-color($theme-default, primary);
+    }
+}
+
+.tabs-content {
+    border: 1px theme-color($theme-default, accent) solid;
+    margin: 10px 0;
+
+    .tabs-panel {
+        padding: 10px;
+        margin: 0;
+        display: none;
+
+        &.is-active {
+            display: block;
+        }
+    }
+}

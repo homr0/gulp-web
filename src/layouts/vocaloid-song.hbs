@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | Evillious Web</title>
+    <!--build:css css/styles.min.css-->
+    <link rel="stylesheet" href="{{ root }}css/main.css">
+    <!--endbuild-->
+    <link rel="stylesheet" href="{{ root }}/css/vocaloid.css">
+    <!--build:js js/main.min.js-->
+    <script src="{{ root }}js/layout.js"></script>
+    <!--endbuild-->
+</head>
+
+<body>
+    {{> header }}
+    <div class="row">
+        <div class="col sm-12 info info-basic">
+            <h1>{{ title }}</h1>
+            <p>You are here: {{page}}</p>
+        </div>
+
+        <div class="col sm-12 info info-video">
+
+        </div>
+
+        <div class="col sm-12 info info-collection">
+
+        </div>
+
+        <div class="col sm-12 info-cast">
+            <h2>Cast</h2>
+            <div class="cast">
+
+            </div>
+        </div>
+
+        <div class="col sm-12 info-lyrics">
+            <h2>Lyrics</h2>
+            <ul class="tabs" data-tabs id="lyrics">
+                <li class="tabs-title is-active"><a href="#english">English</a></li>
+                <li class="tabs-title"><a href="#romaji">Romaji</a></li>
+            </ul>
+            {{> body }}
+        </div>
+    </div>
+    {{> footer }}
+</body>
+</html>
