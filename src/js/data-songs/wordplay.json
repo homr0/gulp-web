@@ -1,0 +1,20 @@
+{
+    "title":"Wordplay",
+    "romaji":"Kotoba Asobi",
+    "subtitle":"Clockwork lullaby ZERO",
+    "date":"2008-03-08",
+    "url":"https://www.youtube.com/embed/MMl7er1G8po",
+    "upload":"2008-03-08",
+    "artists":[
+        { "drawn":"mothy" }
+    ],
+    "albums": [
+        { "cd":"Evils Theater" }
+    ],
+    "series": [
+        { "story":"Clockwork Lullaby Series" }
+    ],
+    "cast": [
+        { "vocal":"Kagamine Rin", "character": "Mysterious Singer" }
+    ]
+}

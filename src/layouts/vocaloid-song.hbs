@@ -9,42 +9,70 @@
     <!--endbuild-->
     <link rel="stylesheet" href="{{ root }}/css/vocaloid.css">
     <!--build:js js/main.min.js-->
+    <script src="{{ root }}js/jquery.min.js"></script>
     <script src="{{ root }}js/layout.js"></script>
+    <script src="{{ root }}js/song.js"></script>
     <!--endbuild-->
 </head>
 
 <body>
-    {{> header }}
+    {{> header }}<!--
     <div class="row">
-        <div class="col sm-12 info info-basic">
+        <div class="col sm-12">
             <h1>{{ title }}</h1>
             <p>You are here: {{page}}</p>
         </div>
+    </div>-->
+    <div class="row">
+        <div class="col sm-12 info info-basic">
+            <h1 class="song title">{{ title }}</h1>
+            <p class="song romaji"></p>
+            <p class="song subtitle"></p>
+            <p class="song date"></p>
+        </div>
 
         <div class="col sm-12 info info-video">
-
+            <h2>Video</h2>
+            <div class="row">
+                <div class="col sm-12 md-9 song video-container">
+                    <iframe class="song video" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="col sm-12 md-3">
+                    <p class="song upload"></p>
+                    <p class="song artists"></p>
+                </div>
+            </div>
         </div>
 
         <div class="col sm-12 info info-collection">
-
+            <h2 class="song albums">Albums</h2>
+            
+            <h2 class="song series">Series</h2>
         </div>
 
         <div class="col sm-12 info-cast">
             <h2>Cast</h2>
-            <div class="cast">
+            <div class="song cast">
 
             </div>
         </div>
 
         <div class="col sm-12 info-lyrics">
             <h2>Lyrics</h2>
-            <ul class="tabs" data-tabs id="lyrics">
-                <li class="tabs-title is-active"><a href="#english">English</a></li>
-                <li class="tabs-title"><a href="#romaji">Romaji</a></li>
+            <ul class="tabs song" id="lyrics">
+                <li class="tabs-title active" data-tab="#english">English</li>
+                <li class="tabs-title" data-tab="#romaji">Romaji</li>
             </ul>
             {{> body }}
         </div>
     </div>
     {{> footer }}
+
+    <script>
+        $(document).ready(function() {
+            var file = "{{ root }}js/data-songs/{{ page }}.json";
+            loadSong(file);
+        });
+    </script>
 </body>
 </html>

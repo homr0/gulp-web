@@ -1,5 +1,6 @@
 .tabs {
     padding: 0;
+    margin: 0;
 
     li {
         display: inline;
@@ -8,14 +9,15 @@
         padding: 10px;
         border: 1px theme-color($theme-default, accent) solid;
 
-        &.is-active {
+        &.active {
             background-color: theme-color($theme-default, foreground);
         }
     }
 
-    li:hover, a:hover {
+    li:hover {
         background-color: theme-color($theme-default, secondary);
         color: theme-color($theme-default, primary);
+        cursor: pointer;
     }
 }
 
@@ -28,7 +30,7 @@
         margin: 0;
         display: none;
 
-        &.is-active {
+        &.active {
             display: block;
         }
     }

@@ -15,3 +15,20 @@ function footerDates() {
     document.getElementById("fileDate").innerHTML = fileDate.getFullYear() + "-" + m + "-" + d;
     return;
 }
+
+/* jQuery Functions. */
+$(document).ready(function(){
+
+    /* Tabs functionality. */
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('ul.tabs li').removeClass('active');
+		$('.tabs-panel').removeClass('active');
+
+		$(this).addClass('active');
+		$(tab_id).addClass('active');
+        e.preventDefault();
+	});
+
+})

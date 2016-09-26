@@ -35,7 +35,7 @@ gulp.task('sass', function() {
 
 // Gulp moves JavaScript over.
 gulp.task('javascript', function() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src('src/js/**/*')
     .pipe(gulp.dest('dist/js'))
 });
 
@@ -61,6 +61,12 @@ gulp.task('images', function() {
 gulp.task('fonts', function() {
     return gulp.src('src/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))
+});
+
+// Copies data over to dist
+gulp.task('data', function() {
+    return gulp.src('src/data/**/*')
+    .pipe(gulp.dest('dist/data'))
 });
 
 // Feeds Panini a stream of HTML files to get flattened site.
@@ -97,11 +103,12 @@ gulp.task('pages:reset', function(done) {
 });
 
 // Gulp watches for changes and then reloads browser.
-gulp.task('watch', ['browserSync', 'sass'], function() {
+gulp.task('watch', ['browserSync', 'sass', 'javascript', 'data'], function() {
     gulp.watch('src/scss/**/*.scss', ['sass']);
     gulp.watch('src/pages/**/*.html', ['pages']);
     gulp.watch(['src/{layouts,partials,helpers,data}/**/*'], ['pages:reset']);
-    gulp.watch('src/js/**/*.js', ['javascript, reload']);
+    gulp.watch('src/js/**/*', ['javascript']);
+    gulp.watch('src/data/**/*', ['data']);
 });
 
 // Gulp builds everything with a sequence of events.
